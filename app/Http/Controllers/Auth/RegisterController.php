@@ -7,7 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Mail;
+use App\Mail\verifyEmail;
+use Session;
 class RegisterController extends Controller
 {
     /*
@@ -63,10 +67,43 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        Session::flash('status','User Registered! But verify your Email to Activate your Account');
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'verifytoken' => Str::random(40),
         ]);
+        $thisUser = User::findOrFail($user->id);
+        //dd($thisUser);
+        $this->sendEmail($thisUser);
+        return $user;
+    }
+
+    public function sendEmail($thisUser)
+    {
+        Mail::to($thisUser['email'])->send(new verifyEmail($thisUser));
+
+    }
+
+    public function verifyEmailFirst()
+    {
+        return view('email.verifyemailfirst');
+    }
+
+    public function sendEmailDone($email,$verifyToken)
+    {
+        $user = User::where(['email'=>$email,'verifytoken'=>$verifyToken])->first();
+        if($user)
+        {
+            User::where(['email'=>$email,'verifytoken'=>$verifyToken])->update(['status'=>'1','verifytoken'=>NULL]);
+            Session::flash('status','User Account Activated !!!');
+            return redirect(route('login'));
+        }else
+        {
+            Session::flash('status','User Not Found !!!');
+            return redirect(route('login'));
+        }
+        //return $verifyToken;
     }
 }

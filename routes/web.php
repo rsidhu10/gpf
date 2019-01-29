@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/divuser' , 'DivuserController@index')->name('divhome');
+Route::get('verifyEmailFirst','Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
+Route::get('verify/{email}/{verifyToken}','Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 
 Route::GET('admin/home','AdminController@index');
 Route::GET('admin','Admin\LoginController@showLoginForm')->name('admin.login');
