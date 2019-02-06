@@ -48,7 +48,7 @@ class LoginController extends Controller
 
         foreach ($this->guard()->user()->role as $role) {
             if($role->name == 'hq_user'){
-                return redirect('home');
+                return redirect('cases');
             }elseif ($role->name == 'div_user') {
                 return redirect('divuser');
             }

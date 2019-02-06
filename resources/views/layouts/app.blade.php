@@ -18,6 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!--These two links included to check weather it works or not -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
 </head>
 <body>
     <div id="app">
@@ -32,9 +39,18 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
+                    <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Data Entry
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Add GPF Advance</a></li>
+                        <li><a href="#">Edit GPV Advance</a></li>
+                        <li><a href="#">Add GI Pipe</a></li>
                     </ul>
+                </li>
+                    {{-- <ul class="navbar-nav mr-auto"> --}}
+                        <li class="active"><a href="/cases">Home</a></li>
+                   {{--  </ul> --}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -71,10 +87,25 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        <!--<main class="py-4"> --> 
+        <div class="container">
+            @include('partials.errors')
+            @include('partials.success')
+            <div class="row">
+                @yield('content')
+            </div>
+            <script type="text/javascript">
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            </script>
+        </div>        
+        <!--   </main> -->
+        {{-- <main class="py-4">
             @yield('content')
-        </main>
+        </main> --}}
     </div>
 </body>
 </html>
