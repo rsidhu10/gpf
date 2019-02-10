@@ -88,9 +88,9 @@
                     <a href="/water/gpfadvances">GPF</a>
                     <a href="#">Estimates</a>
                     <a href="#">Pay</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="#">GPF Statements</a>
+                    <a href="#">Case Status</a>
+                    <a href="#">CPF</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>

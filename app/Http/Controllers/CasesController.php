@@ -19,6 +19,16 @@ class CasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function test()
+    {
+        
+        return view('cases.test');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         
@@ -34,6 +44,8 @@ class CasesController extends Controller
     {
         $zones = Zone::all();
         return view('cases.create',compact('zones'));
+
+        
     }
 
     /**
