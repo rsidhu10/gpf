@@ -20,9 +20,16 @@ class PendingCase extends Model
 	{
        	if($value == "0"){
         return "Pending";
-        }else{
+        }elseif($value == "1")
+        {
             return "Approved";
-        }   
+        }elseif($value == "2")
+        {
+            return "Under Proccessing";
+        }elseif($value == "3")
+        {
+            return "Objection Raised Reply awaited";
+        }       
 	
 	}
 
@@ -49,7 +56,7 @@ class PendingCase extends Model
 	    'approved_by',
 	    'approval_no',
 	    'approval_dt',
-	    'approval_amt',
+	    'approved_amt',
 	    'certificate',
 	    'certificate_no',
 	    'certificate_dt',

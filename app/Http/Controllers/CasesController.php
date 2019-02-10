@@ -91,7 +91,46 @@ class CasesController extends Controller
      */
     public function show($id)
     {
-        //
+        // $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
+        //                     ->join('gpf_categories','gpf_categories.id', '=', 'pending_cases.category_id')
+        //                     ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+                            
+        //                     ->selectRaw('
+        //                           pending_cases.id,
+        //                           gpf_categories.category,
+        //                           pending_cases.gpf_number,
+        //                           pending_cases.name,
+        //                           pending_cases.status,
+        //                           pending_cases.relates_to,
+        //                           pending_cases.retirement_dt,
+        //                           pending_cases.diary_dt,
+        //                           pending_cases.created_at,
+        //                           reasons.reason,
+        //                           designations.designation
+        //                           '
+
+        //                           )
+                            
+        //                     ->find($id);
+        
+        $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
+                            ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+                            ->selectRaw('reasons.reason,pending_cases.id,
+                                pending_cases.gpf_number,
+                                pending_cases.name,
+                                pending_cases.approved_by,
+                                pending_cases.approval_no,
+                                pending_cases.approval_dt,
+                                pending_cases.approved_amt,
+                                pending_cases.status,
+                                pending_cases.certificate,
+                                pending_cases.certificate_no,
+                                pending_cases.certificate_dt,
+                                designations.designation
+                                ')->find($id);
+
+
+                        return view('cases/show',compact('data'));
     }
 
     /**
@@ -232,8 +271,10 @@ class CasesController extends Controller
 
                                   )
                             // ->orderBy('relates_to', 'asc')
+                            // ->orderBy('gpf_categories', 'asc')
                             ->orderBy('retirement_dt', 'asc')
-                            // ->where('relates_to','=','s1')
+                             ->where('status','!=','1')
+                             // ->where('relates_to',"=","S5" )
                             ->get();
         
 

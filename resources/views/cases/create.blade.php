@@ -1,12 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.main')
 @section('content')
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>	
+
 	<div class="container" style="text-align: center;">
 		<h3>Add New Cases Received in GPF Branch</h3>
 	</div>
-	<div class="container-fluid" style="width: 90%">
+	<div class="container>
 		<form method="post" name="save-form" id="save-form" action="{{route('cases.store')}}">
         	{{ csrf_field() }}
         	<div class="alert alert-success" style="visibility: hidden;" id="message">
@@ -124,7 +122,7 @@
                 </tr>
                 <tr> 
                  	<th>
-                        <span>Employee GPFund No.</span>
+                        <span>GPFund No.</span>
                     </th>
                     <th>
                         <span>Employee Code</span>
@@ -134,6 +132,9 @@
                     </th>
                     <th>
                         <span>Reason of Advance</span>
+                    </th>
+                    <th>
+                        <span>Financial Year</span>
                     </th>
                 </tr>
                 <tr>  
@@ -181,10 +182,10 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"> 
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"> 
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
-</script>
+</script> --}}
 
 
  {{--  <script src="/resources/js/cases/fill.js"></script> --}}

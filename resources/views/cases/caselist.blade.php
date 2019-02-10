@@ -5,13 +5,13 @@
     <tr>
         <td style="text-align: center;">  {{ $num}}</td>
         <td style="text-align: left;">  {{ $data->gpf  }}</td>
-        <td style="text-align: left;"  >  {{ $data->name          }}</td>
-        <td style="text-align: left;"  >  {{ $data->designation   }}</td>
+        <td style="text-align: left;">  {{ $data->name          }}</td>
+        <td style="text-align: left;">  {{ $data->designation   }}</td>
         <td style="text-align: left;">  {{ $data->reason}}</td>
-        <td style="text-align: left;"  >  {{ \Carbon\Carbon::parse($data->retirement_dt)->format('d-M-y')}}</td> 
-        <td style="text-align: left;"  >  {{ \Carbon\Carbon::parse($data->diary_dt)->diffForHumans() }}</td>      
-        <td style="text-align: left;" >  {{ $data->relates_to}}</td>
-        <td style="text-align: right;" >  {{ $data->status }}</td> --}} 
+        <td style="text-align: left;">  {{ \Carbon\Carbon::parse($data->retirement_dt)->format('d-M-y')}}</td> 
+        <td style="text-align: left;">  {{ \Carbon\Carbon::parse($data->diary_dt)->diffForHumans() }}</td>      
+        <td style="text-align: left;">  {{ $data->relates_to}}</td>
+        <td style="text-align: left;">  {{ $data->status }}</td> --}} 
        
        
 
