@@ -7,6 +7,7 @@
          @yield('content')
          @include('partials._footer')   
       </div>
-   @include('partials._javascripts')
+	   @include('partials._javascripts')
+	   @yield('scripts')
    </body>
 </html>

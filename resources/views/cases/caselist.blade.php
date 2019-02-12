@@ -18,7 +18,7 @@
 
         
         <td style="text-align: right;">
-            <a href="#" class="btn btn-info btn-xs" id="edit" data="{{$data->id}}" >Edit</a>
+            <a href="{{'/cases/' .$data->id. '/edit'}}" class="btn btn-info btn-xs" id="edit" data="{{$data->id}}" >Edit</a>
         </td>
         
         

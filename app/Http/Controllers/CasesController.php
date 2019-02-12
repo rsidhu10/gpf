@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Session;
 use App\Zone;
 use App\Circle;
 use App\Division;
@@ -19,19 +20,8 @@ class CasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function test()
-    {
-        
-        return view('cases.test');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        
         return view('cases.index');
     }
 
@@ -44,8 +34,6 @@ class CasesController extends Controller
     {
         $zones = Zone::all();
         return view('cases.create',compact('zones'));
-
-        
     }
 
     /**
@@ -57,42 +45,43 @@ class CasesController extends Controller
     public function store(StoreCase $request)
     {
         $data = Input::all();
-        //dd($data);
+        dd($data);
         $data = PendingCase::where('letter_no',   $request->letter_no_txt)
                             ->where('letter_dt',  $request->letter_dt_txt) 
                             ->where('gpf_number', $request->gpf_no_txt)   
                             ->first();
         if($data){
             $zones = Zone::all();
-        return view('cases.create',compact('zones'))->with('success',
-            'Record Alrady Exists ');
+        Session()->flash('success', 'Record Already Exist!!');
+ 
+        return view('cases.create',compact('zones'));
             
         }else{
-        $case = PendingCase::create([
-            'zone_id'       => $request->input('zone_cbo'),
-            'circle_id'     => $request->input('circle_cbo'),
-            'division_id'   => $request->input('division_cbo'),
-            'letter_no'     => $request->input('letter_no_txt'),
-            'letter_dt'     => $request->input('letter_dt_txt'),
-            'diary_no'      => $request->input('diary_no_txt'),
-            'diary_dt'      => $request->input('diary_dt_txt'),
-            'category_id'   => $request->input('category_cbo'),
-            'gpf_number'    => $request->input('gpf_no_txt'),
-            'empcode'       => $request->input('emp_code_txt'),
-            'name'          => $request->input('emp_name_txt'),
-            'designation_id'=> $request->input('designation_cbo'),
-            'casetype_id'   => $request->input('reason_cbo'),
-            'retirement_dt' => $request->input('retire_dt_txt'),
-            'relates_to'    => $request->input('relatesto_cbo'),
-            'financial_year'=> $request->input('sanction_year_cbo'),
-             
-        ]);
-
-
+        // $case = PendingCase::create([
+        //     'zone_id'       => $request->input('zone_cbo'),
+        //     'circle_id'     => $request->input('circle_cbo'),
+        //     'division_id'   => $request->input('division_cbo'),
+        //     'letter_no'     => $request->input('letter_no_txt'),
+        //     'letter_dt'     => $request->input('letter_dt_txt'),
+        //     'diary_no'      => $request->input('diary_no_txt'),
+        //     'diary_dt'      => $request->input('diary_dt_txt'),
+        //     'category_id'   => $request->input('category_cbo'),
+        //     'gpf_number'    => $request->input('gpf_no_txt'),
+        //     'empcode'       => $request->input('emp_code_txt'),
+        //     'name'          => $request->input('emp_name_txt'),
+        //     'designation_id'=> $request->input('designation_cbo'),
+        //     'casetype_id'   => $request->input('reason_cbo'),
+        //     'retirement_dt' => $request->input('retire_dt_txt'),
+        //     'relates_to'    => $request->input('relatesto_cbo'),
+        //     'financial_year'=> $request->input('sanction_year_cbo'),
+        // ]);
+       
+        Session()->flash('success', 'Record Saved Successfully!');
+        
         $zones = Zone::all();
-        return view('cases.create',compact('zones'))->with('success',
-            'Record Saved Successfully');
+        return view('cases.create',compact('zones'));
         }
+
     }
 
     /**
@@ -103,31 +92,10 @@ class CasesController extends Controller
      */
     public function show($id)
     {
-        // $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
-        //                     ->join('gpf_categories','gpf_categories.id', '=', 'pending_cases.category_id')
-        //                     ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
-                            
-        //                     ->selectRaw('
-        //                           pending_cases.id,
-        //                           gpf_categories.category,
-        //                           pending_cases.gpf_number,
-        //                           pending_cases.name,
-        //                           pending_cases.status,
-        //                           pending_cases.relates_to,
-        //                           pending_cases.retirement_dt,
-        //                           pending_cases.diary_dt,
-        //                           pending_cases.created_at,
-        //                           reasons.reason,
-        //                           designations.designation
-        //                           '
-
-        //                           )
-                            
-        //                     ->find($id);
-        
         $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
                             ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
                             ->selectRaw('reasons.reason,pending_cases.id,
+                                pending_cases.id,
                                 pending_cases.gpf_number,
                                 pending_cases.name,
                                 pending_cases.approved_by,
@@ -141,7 +109,6 @@ class CasesController extends Controller
                                 designations.designation
                                 ')->find($id);
 
-
                         return view('cases/show',compact('data'));
     }
 
@@ -153,7 +120,26 @@ class CasesController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        
+        $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
+                            ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+                            ->selectRaw('reasons.reason,pending_cases.id,
+                                pending_cases.id,
+                                pending_cases.gpf_number,
+                                pending_cases.name,
+                                pending_cases.approved_by,
+                                pending_cases.approval_no,
+                                pending_cases.approval_dt,
+                                pending_cases.approved_amt,
+                                pending_cases.status,
+                                pending_cases.certificate,
+                                pending_cases.certificate_no,
+                                pending_cases.certificate_dt,
+                                designations.designation
+                                ')->find($id);
+        // dd($data);
+        return view('cases.edit',compact('data'));
     }
 
     /**
@@ -205,6 +191,8 @@ class CasesController extends Controller
       $divisions = Division::where('circle_id', '=', $id)->get();
        // $divisions = Division::all();
       return response()->json($divisions);
+      
+
     }
 
     /**
@@ -271,6 +259,7 @@ class CasesController extends Controller
                             
                             ->selectRaw('
                                   concat(gpf_categories.category,"-",pending_cases.gpf_number) as gpf,
+                                  pending_cases.id,
                                   pending_cases.name,
                                   pending_cases.status,
                                   pending_cases.relates_to,
@@ -292,8 +281,19 @@ class CasesController extends Controller
 
 
 
-                        return view('cases.caselist', compact('cases'))->with('success',
-            'Record Saved Successfully'); 
+                        return view('cases.caselist', compact('cases')); 
+    }
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function flagedcases()
+    {
+            $reasons = Reason::all();
+        return response()->json($reasons);
     }
 
 

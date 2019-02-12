@@ -26,7 +26,12 @@ Route::get('/contactus', function () {
 
 Auth::routes();
 
-Route::resource('approvals','ApprovalController');
+Route::resource('approvals','ApprovalController')->middleware('authenticated');
+
+// Route::group(['middleware' => ['web']], function(){
+// 		Route::resource('cases','CasesController')->middleware('authenticated');
+// });
+
 
 Route::resource('cases','CasesController')->middleware('authenticated');
 
@@ -58,5 +63,8 @@ Route::get('/case/category',   'CasesController@categories');
 Route::get('/case/designation','CasesController@designations');
 Route::get('/case/reason',     'CasesController@reasons');
 Route::get('/show-gpf-adv',    'CasesController@showcases');
+//Route::get('/case/dealer',       'CasesController@flagedcases');
+Route::get('/case/dealer',   'CasesController@flagedcases');
 
+Route::get('/home/importantcase', 'HomeController@importantcase');
 

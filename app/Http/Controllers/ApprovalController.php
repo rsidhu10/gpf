@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Session;
 class ApprovalController extends Controller
 {
     /**
@@ -34,6 +34,12 @@ class ApprovalController extends Controller
      */
     public function store(Request $request)
     {
+     
+         // Session::flash('success', 'Record Saved Successfully!!');
+        Session()->flash('success', 'Record Saved Successfully!');
+         $test = Session::get('success');
+        
+         return view('approvals.create');
         //return view('approvals/index');
     }
 

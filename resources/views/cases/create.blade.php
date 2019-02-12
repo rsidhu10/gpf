@@ -1,198 +1,243 @@
 @extends('layouts.main')
+@section('stylessheets')
+   {!! Html::style('css/parsley.css') !!}
+@endsection
 @section('content')
-
-   <div class="container" style="text-align: center;">
+   <div class="container" style="text-align: center; margin-top:80px; ">
       <h3>Add New Cases Received in GPF Branch</h3>
    </div>
-   <div class="container>
-      {{-- <form method="post" name="save-form" id="save-form" action="{{route('cases.store')}}"> --}}
-      {!! Form::open(['route' => 'cases.store']) !!}   
+   <div class="container" style="margin-top: 20px;">   
+      {{-- <form method="post" name="save-form" id="save-form"
+            data-parsley-validate
+            action="{{route('cases.store')}}"> --}}
+
+      {!! Form::open(['route' => 'cases.store',
+                     'id' => "save-form",
+                     'name' => "save-form",
+                     'method' => 'Post',
+                     'data-parsley-validate' =>'']) !!}         
          {{ csrf_field() }}
-         <div class="alert alert-success" style="visibility: hidden;" id="message">
-               <p id="result" name="result" style="text-align: center;"></p>
+         <!--- Message Starts Here      -->
+         @include('partials._messages')
+         <!-- Ends Here -->
+         <div class="row">
+            
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Zone</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Circle</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Division</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Category</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Designation</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>GPF No.</label>
+            </div>   
          </div>
-           {{-- <div>
-               @if(count($errors) > 0)
-                   @foreach($errors->all() as $error)
-                       <p class="alert alert-danger">{{$error}}</p>
-                   @endforeach
-               @endif    
-           </div> --}}
-            <div class="table-responsive" id="Combo_details">
-               <table class="table table-condensed table-striped">
-               <tr>
-                  <td width="14%" align="left" style="padding-left: 10px;"><span>Zone</span></td>
-                  <td width="17%" align="left"><span>Circle</span></td>
-                  <td width="17%" align="left"><span>Division</span></td>
-                  <td width="17%" align="left"><span>Category</span></td>
-                  <td width="27%" align="left"><span>Designation</span></td>
-                  {{-- <td width="10%" align="center">
-                     <input  type="text" name="division-txt" id="division-txt" style="width: 1px; visibility: hidden; height: 10px;" >
-                     <input  type="text" name="subdivision-txt" id="subdivision-txt" style="width: 1px; visibility: hidden; height: 10px;" >
-                  </td> --}}
-               </tr>
-               <tr>
-                  <td>
-                     <select class="form-control input-sm" name="zone_cbo"  id="zone_cbo"  autofocus="autofocus" required  >
-                         <option value="" disable="true" Selected hidden>Select Zone</option>
-                         @foreach($zones as $zone)
-
-                           <option value="{!! $zone->id !!}" @if(old('zone_cbo') == $zone->id) selected="selected" @endif >{{ $zone->zone_name }}</option>
-                         @endforeach
-                     </select>
-                  </td>             
-                  <td>
-                     <select name="circle_cbo" id="circle_cbo" class="form-control input-sm" autofocus="autofocus" required>
-                         <option value="">Select Circle</option>
-                         
-                     </select>
-                  </td>
-                  <td>
-                     <select name="division_cbo" id="division_cbo"  class="form-control input-sm" autofocus="autofocus" required>
+         <div class="row">
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="zone_cbo" 
+                        name="zone_cbo"  
+                        class="form-control form-control-sm"  
+                        autofocus="autofocus" required  >
+                           <option value="" Selected hidden>Select Zone</option>
+                           @foreach($zones as $zone)
+                              <option value="{!! $zone->id !!}" >
+                                 {{ $zone->zone_name }}
+                              </option>
+                           @endforeach
+               </select>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="circle_cbo"
+                        name="circle_cbo"  
+                        class="form-control form-control-sm" 
+                        autofocus="autofocus" required>
+                        <option value="">Select Circle</option>    
+               </select>   
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="division_cbo" 
+                        name="division_cbo"  
+                        class="form-control form-control-sm"
+                        autofocus="autofocus" required>
                         <option value="">Select Division</option>
-                     </select>
-                  </td>
-                  <td>
-                     <select name="category_cbo" id="category_cbo" class="form-control input-sm" autofocus="autofocus" required>
+               </select>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="category_cbo" 
+                        name="category_cbo" 
+                        class="form-control form-control-sm"
+                        autofocus="autofocus" required>
                         <option value="">Select Category</option>
-                     </select>
-                  </td>
-                  <td>
-                     <select name="designation_cbo" id="designation_cbo" class="form-control input-sm" autofocus="autofocus" required>
+               </select>   
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="designation_cbo"
+                        name="designation_cbo"  
+                        class="form-control form-control-sm" 
+                        autofocus="autofocus" required>
                         <option value="">Select Designation</option>
-                     </select>
-                  </td>
-                  {{-- <td width="10%" align="center">
-                     <button type="button" name="search" id="search" class="btn btn-info input-sm">Search</button>
-                  </td> --}}
-               </tr>
-            </table>
+               </select>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <input   id="gpf_no_txt" 
+                        name="gpf_no_txt"  
+                        class="form-control form-control-sm" 
+                        placeholder="GPF No. (e.g : 123)" 
+                        type="text" required>         
+            </div>
          </div>
-         <table class="table table-condensed table-borderless">
-                <tr>
-                    <th width="15%" >
-                        <span>Letter No</span>
-                    </th>
-                    <th  width="15%" >
-                        <span>Letter Date</span>
-                    </th>
-                    <th width="15%" >
-                        <span>Diary No</span>
-                    </th>
-                    <th width="15%" >
-                        <span>Diary Date</span>
-                    </th>
-                    <th width="15%">
-                     <span>Retirement Date</span>
-                    </th>
-                    <th width="15%">
-                     <span>Case Relates to</span>
-                    </th>
-                </tr>
-                <tr>  
-                    <td>
-                        <input class="form-control input-sm" type="text" name="letter_no_txt" id="letter_no_txt" placeholder="Letter No." required value="{{ old('letter_no_txt')}}">
-                    </td>
-                    <td>
-                        <input class="form-control input-sm" type="date" name="letter_dt_txt" id="letter_dt_txt" required value="{{ old('letter_dt_txt')}}" >
-                    </td>
-                    <td>
-                        <input class="form-control input-sm" type="text" name="diary_no_txt" id="diary_no_txt"  placeholder="Diary No." required value="{{ old('diary_no_txt')}}"  >
-                    </td>
-                    <td>
-                        <input class="form-control input-sm" type="date" name="diary_dt_txt" id="diary_dt_txt" required value="{{ old('diary_dt_txt')}}"  >
-                    </td>
-                    <td>
-                        <input class="form-control input-sm" type="date" name="retire_dt_txt" id="retire_dt_txt" required value="{{ old('retire_dt_txt')}}"  >
-                    </td>
-                    <td>
-                        <select name="relatesto_cbo" id="relatesto_cbo" class="form-control input-sm" autofocus="autofocus" required>
-                            <option value=""  Selected hidden >Select Relates to</option>
-                            <option value="{!! 'S1' !!}" @if(old('relatesto_cbo') == 'S1') selected="selected" @endif >{{ 'S1'
-                        }}</option>
-                            <option value="S1">S1</option>
-                            <option value="S2">S2</option>
-                            <option value="S3">S3</option>
-                            <option value="S4">S4</option>
-                            <option value="S5">S5</option>
-                            <option value="S6">S6</option>
-                            <option value="S7">S7</option>
+         <div class="row" style="margin-top: 20px;">
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Letter No.</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Letter Date</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Diary No.</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Diary Date</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Retirement Date</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Case Relates to</label>
+            </div>   
+         </div>
+         <div class="row">
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <input   id="letter_no_txt" 
+                        name="letter_no_txt"  
+                        class="form-control form-control-sm" 
+                        placeholder="Letter No." 
+                        type="text" required>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <input   id="letter_dt_txt"
+                        name="letter_dt_txt"  
+                        class="form-control form-control-sm"
+                        type="date"  required>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <input   id="diary_no_txt"
+                        name="diary_no_txt"  
+                        class="form-control form-control-sm"  
+                        placeholder="Diary No." 
+                        type="text" required> 
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <input   id="diary_dt_txt"
+                        name="diary_dt_txt"  
+                        class="form-control form-control-sm"
+                        type="date" required>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <input   id="retire_dt_txt" 
+                        name="retire_dt_txt" 
+                        class="form-control form-control-sm" 
+                        type="date" required>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="relatesto_cbo" 
+                        name="relatesto_cbo" 
+                        class="form-control form-control-sm"
+                        autofocus="autofocus" required>
+                        <option value=""  Selected hidden >Select Relates to</option>
+                        <option value="S1">Rajesh Kumar</option>
+                        <option value="S2">Rakesh Kumar</option>
+                        <option value="S3">Nirmal Singh</option>
+                        <option value="S4">Raj Kumar</option>
+                        <option value="S5">Amardeep Singh</option>
+                        <option value="S6">Shagufta Khan</option>
+                        <option value="S7">Rajinder Kaur</option>
+               </select>
+            </div>
+         </div>
+         <div class="row" style="margin-top: 20px;">
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Financial Year</label>
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">
+               <label>Reason</label>
+            </div>
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <label>Employee Code</label>
+            </div>
+            <div class="col-6 col-sm-2 themed-grid-col">
+               <label>Employee Name</label>
+            </div>  
+         </div>
+         <div class="row">
+            <div class="col-5 col-sm-2 themed-grid-col">
+               <select  id="sanction_year_cbo"
+                        name="sanction_year_cbo"  
+                        class="form-control form-control-sm"
+                        autofocus="autofocus" required
+                        disabled="true">
+                        <option value=""  Selected hidden >Select Year</option>
+                        <option value="2018-2019" selected="true">2018-2019</option>
+                        <option value="2019-2020">2019-2020</option>
+               </select>
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">
+               <select  id="reason_cbo" 
+                        name="reason_cbo" 
+                        class="form-control form-control-sm"
+                        autofocus="autofocus" required>
+                        <option value=""  Selected hidden >Select Reason</option>
+               </select>
+            </div>
+            <div class="col-6 col-sm-2 themed-grid-col">
+               <input   id="emp_code_txt" 
+                        name="emp_code_txt"
+                        class="form-control form-control-sm" 
+                        placeholder="HRMS Employee Code" 
+                        type="text" required> 
+                        
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">
+               <input   id="emp_name_txt"
+                        name="emp_name_txt" 
+                        class="form-control form-control-sm" 
+                        placeholder="Employee Name" 
+                        type="text" required>
+            </div>
+         </div>
+         <div class="row" style="margin-top: 30px;">
+               <div class="col-md-5 offset-5 ">
+                  <button  id="reset-btn" 
+                           name="reset-btn"  
+                           class="btn btn-primary btn-sm"
+                           type="button" >Reset Form
+                  </button>
+                  {{-- <button  id="save-btn"
+                           name="save-btn" 
+                           class="btn btn-primary btn-sm"
+                           type="submit">Save Record
+                  </button> --}}
+                  {{ Form::submit('Save Record',array('class' => 'btn btn-primary btn-sm'))}}
+               </div>
+         </div>
+      {!! Form::close() !!}          
+   </div>
 
-                        </select>
-                    </td>
-                </tr>
-                <tr> 
-                  <th>
-                        <span>GPFund No.</span>
-                    </th>
-                    <th>
-                        <span>Employee Code</span>
-                    </th>
-                    <th  colspan="2">
-                        <span>Employee Name</span>
-                    </th>
-                    <th>
-                        <span>Reason of Advance</span>
-                    </th>
-                    <th>
-                        <span>Financial Year</span>
-                    </th>
-                </tr>
-                <tr>  
-                  <td>
-                        <input class="form-control input-sm" type="text" name="gpf_no_txt" id="gpf_no_txt" placeholder="GPF No. (e.g : 123)" required value="{{ old('gpf_no_txt')}}">              
-                    </td>
-                    <td>
-                        <input class="form-control input-sm" type="text" name="emp_code_txt" id="emp_code_txt" placeholder="HRMS Employee Code" required value="{{ old('emp_code_txt')}}">       
-                    </td>
-                    <td colspan="2">
-                        <input class="form-control input-sm" type="text" name="emp_name_txt" id="emp_name_txt" placeholder="Employee Name" required value="{{ old('emp_name_txt')}}">
-                    </td>
-                     <td>
-                        <select name="reason_cbo" id="reason_cbo" class="form-control input-sm" autofocus="autofocus" required>
-                            <option value=""  Selected hidden >Select Reason</option>
-                         {{--    @foreach($motives as $data)
-                                <option value="{{$data->id}}">{{$data->motive}}</option>
-                            @endforeach --}}
-                    </select>
-                    </td>    
-                    <td>
-                        <select name="sanction_year_cbo" id="sanction_year_cbo" class="form-control input-sm" autofocus="autofocus" required>
-                            <option value=""  Selected hidden >Select Year</option>
-                            <option value="2018-2019" selected="true">2018-2019</option>
-                            <option value="2019-2020">2019-2020</option>
-                        </select>
-                    </td>    
-                </tr>
-            <tr>
-                
-                    <td colspan="6"  align="center">
-                        <div  >
-                            <button type="button" name="reset-btn" id="reset-btn" class="btn btn-primary input-sm">Reset</button>
-                            <button type="button" name="save-btn" id="save-btn" class="btn btn-primary input-sm">Save</button>
-                            <button type="button" class="btn btn-primary input-sm" onclick="window.location='{{ route("cases.index") }}'">Report</button>
-                            
-                        </div>
-                    </td>
-                </tr>
-            </table>
+       
 
-       {{--  {{ Form::close() }} --}}
-    </div>
-
-
-
-
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"> 
-</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
-</script> --}}
-
-
- {{--  <script src="/resources/js/cases/fill.js"></script> --}}
 
 <script type="text/javascript">
 window.load=$(document).ready(function(){
+  // $('#save-form').parsley(); 
    $('#zone_cbo').on('change', function(e){
       var id = e.target.value;
       console.log(id);
@@ -287,7 +332,8 @@ window.load=$(document).ready(function(){
          $.each(data, function(index, dataObj){
             $('#reason_cbo').append('<option value="'+ dataObj.id +'">'+ dataObj.reason +'</option>');
             });
-      });   
+      });
+
    });
 
    // Rest Button
@@ -296,30 +342,26 @@ window.load=$(document).ready(function(){
         document.location.reload();
     });  
 
-    // Report Button
-
-    $('#back-btn').click(function(){
-      alert('hi');
-
-    });
+    
 
     // Save Button
 
     $('#save-btn').click(function(){
+      alert('hi');
         $('#save-btn').attr('disabled', 'disabled');
-        document.getElementById('save-form').submit();
+        // document.getElementById('save-form').submit();
         document.getElementById('save-form').submit();
                 $("#save-btn").removeClass('btn-primary');
                 $("#save-btn").addClass('btn-success');
-                $("#save-btn").text('Saved!');
+                $("#save-btn").text(' Record Saved!');
                 var timeoutID = window.setTimeout(function () 
                 {
-                     alert('Record Saved');
+                     //alert('Record Saved');
                     $("#save-btn").removeClass('btn-success');
                     $("#save-btn").addClass('btn-primary');
-                    $("#save-btn").text('Add New');
+                    $("#save-btn").text('Save Record');
                     document.location.reload();
-                }, 10000);        
+                }, 5000);        
         
     });    
 });  
@@ -327,4 +369,8 @@ window.load=$(document).ready(function(){
 
 
 
+@endsection
+
+@section('scripts')
+   {!! Html::script('js/parsley.min.js') !!}
 @endsection
