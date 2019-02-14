@@ -36,12 +36,18 @@ class StoreCase extends FormRequest
             'diary_no_txt'  => 'required',
             'emp_name_txt'  => 'required',
             'emp_code_txt'  => 'required | numeric',
-            'gpf_no_txt'    => 'required | numeric',
+            'gpf_no_txt'    => 'required',
             'letter_no_txt' => 'required | alpha_dash',
             'letter_dt_txt' => 'required | date',
             'diary_dt_txt'  => 'required | date',
             'retire_dt_txt' => 'required | date',
          
         ];
+        
+    }
+
+    public function message()
+    {
+      
     }
 }

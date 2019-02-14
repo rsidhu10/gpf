@@ -44,11 +44,11 @@ class HomeController extends Controller
                                   pending_cases.retirement_dt,
                                   reasons.reason
                                   ')
-                            // ->orderBy('relates_to', 'asc')
+                             ->orderBy('relates_to', 'asc')
                             // ->orderBy('gpf_categories', 'asc')
                             ->orderBy('retirement_dt', 'asc')
                              ->where('status','!=','1')
-                             ->where('relates_to',"=","S5" )
+                             ->where('flag',"=","1" )
                             ->get();
         
         return view('home', compact('cases'));

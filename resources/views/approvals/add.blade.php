@@ -1,22 +1,18 @@
 @extends('layouts.main')
-@section('stylessheets')
+{{-- @section('stylessheets')
    {!! Html::style('css/parsley.css') !!}
-@endsection
+@endsection --}}
 @section('content')
    <div class="container" style="text-align: center; margin-top:80px; ">
       <h3>Add New Cases Received in GPF Branch</h3>
    </div>
    <div class="container" style="margin-top: 20px;">   
-      <form method="post" name="save-form" id="save-form"
+      {{-- <form method="post" name="save-form" id="save-form"
             data-parsley-validate
-            action="{{route('cases.store')}}">
-
-      {{-- {!! Form::open(['route' => 'cases.store',
-                     'id' => "save-form",
-                     'name' => "save-form",
-                     'method' => 'Post',
-                     'data-parsley-validate' =>'']) !!}   --}}       
-         {{ csrf_field() }}
+            action="{{route('cases.store')}}"> --}}
+    <form action="{{ route('approvals.store') }}" method="post">        
+		
+    	{{ csrf_field() }}
          <!--- Message Starts Here      -->
          @include('partials._messages')
          <!-- Ends Here -->
@@ -47,19 +43,23 @@
                         name="zone_cbo"  
                         class="form-control form-control-sm"  
                         autofocus="autofocus" required  >
+                           
                            <option value="" Selected hidden>Select Zone</option>
                            @foreach($zones as $zone)
-                              <option value="{!! $zone->id !!}" >
+                              <option value="{!! $zone->id !!}" {{ old('zone_cbo') ==$zone->id ? 'selected' : '' }} >
                                  {{ $zone->zone_name }}
                               </option>
                            @endforeach
+                           
+
                </select>
+
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <select  id="circle_cbo"
                         name="circle_cbo"  
                         class="form-control form-control-sm" 
-                        autofocus="autofocus" required>
+                        autofocus="autofocus" required="true">
                         <option value="">Select Circle</option>    
                </select>   
             </div>
@@ -75,7 +75,7 @@
                <select  id="category_cbo" 
                         name="category_cbo" 
                         class="form-control form-control-sm"
-                        autofocus="autofocus" required>
+                        autofocus="autofocus" >
                         <option value="">Select Category</option>
                </select>   
             </div>
@@ -83,17 +83,24 @@
                <select  id="designation_cbo"
                         name="designation_cbo"  
                         class="form-control form-control-sm" 
-                        autofocus="autofocus" required>
+                        autofocus="autofocus" >
                         <option value="">Select Designation</option>
                </select>
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="gpf_no_txt" 
-                        name="gpf_no_txt"  
-                        class="form-control form-control-sm" 
-                        placeholder="GPF No. (e.g : 123)" 
-                        type="text" required>         
-            </div>
+            	<div class="form-group{{ $errors->has('gpf_no_txt') ? 'has-error' : ''}}">
+	               <input   id="gpf_no_txt" 
+	                        name="gpf_no_txt"  
+	                        class="form-control form-control-sm" 
+	                        placeholder="GPF No. (e.g : 123)" 
+	                        type="text" required>
+	                @if($errors->has('gpf_no_txt'))
+	                	<span class="help-block">
+	                		{{ $errors->first('gpf_no_txt')}}
+	                	</span>
+             		@endif                 
+	            </div>
+	        </div>    
          </div>
          <div class="row" style="margin-top: 20px;">
             <div class="col-5 col-sm-2 themed-grid-col">
@@ -117,51 +124,94 @@
          </div>
          <div class="row">
             <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="letter_no_txt" 
+            	<div class="form-group{{ $errors->has('letter_no_txt') ? 'has-error' : ''}}">
+	               <input   id="letter_no_txt" 
                         name="letter_no_txt"  
                         class="form-control form-control-sm" 
-                        placeholder="Letter No." 
-                        type="text" required>
+                        placeholder="Letter No."
+                        value="{{ old('letter_no_txt')}}" 
+                        type="text" required >
+                @if($errors->has('letter_no_txt'))
+                	<span class="help-block">
+                		{{ $errors->first('letter_no_txt')}}
+                	</span>
+             	@endif
+             	</div>   	
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="letter_dt_txt"
-                        name="letter_dt_txt"  
-                        class="form-control form-control-sm"
-                        type="date"  required>
+               <div class="form-group{{ $errors->has('letter_dt_txt') ? 'has-error' : ''}}">
+	               <input   id="letter_dt_txt"
+	                        name="letter_dt_txt"  
+	                        class="form-control form-control-sm"
+	                        type="date" required >
+	                @if($errors->has('letter_dt_txt'))
+	                	<span class="help-block">
+	                		{{ $errors->first('letter_dt_txt')}}
+	                	</span>
+	             	@endif
+             	</div>        
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="diary_no_txt"
-                        name="diary_no_txt"  
-                        class="form-control form-control-sm"  
-                        placeholder="Diary No." 
-                        type="text" required> 
+               	<div class="form-group{{ $errors->has('diary_no_txt') ? 'has-error' : ''}}">
+	               <input   id="diary_no_txt"
+	                        name="diary_no_txt"  
+	                        class="form-control form-control-sm"  
+	                        placeholder="Diary No." 
+	                        type="text" required>
+	                @if($errors->has('diary_no_txt'))
+	                	<span class="help-block">
+	                		{{ $errors->first('diary_no_txt')}}
+	                	</span>
+	             	@endif
+             	</div>         
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
+               	<div class="form-group{{ $errors->has('diary_dt_txt') ? 'has-error' : ''}}">
                <input   id="diary_dt_txt"
                         name="diary_dt_txt"  
                         class="form-control form-control-sm"
-                        type="date" required>
+                        type="date" required >
+                    @if($errors->has('diary_dt_txt'))
+	                	<span class="help-block">
+	                		{{ $errors->first('diary_no_txt')}}
+	                	</span>
+	             	@endif
+             	</div>           
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="retire_dt_txt" 
-                        name="retire_dt_txt" 
-                        class="form-control form-control-sm" 
-                        type="date" required>
+               	<div class="form-group{{ $errors->has('diary_dt_txt') ? 'has-error' : ''}}">
+	               	<input  id="retire_dt_txt" 
+	                        name="retire_dt_txt" 
+	                        class="form-control form-control-sm" 
+	                        type="date" required >
+                    @if($errors->has('retire_dt_txt'))
+	                	<span class="help-block">
+	                		{{ $errors->first('retire_dt_txt')}}
+	                	</span>
+	             	@endif
+             	</div>           
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <select  id="relatesto_cbo" 
-                        name="relatesto_cbo" 
-                        class="form-control form-control-sm"
-                        autofocus="autofocus" required>
-                        <option value=""  Selected hidden >Select Relates to</option>
-                        <option value="S1">Rajesh Kumar</option>
-                        <option value="S2">Rakesh Kumar</option>
-                        <option value="S3">Nirmal Singh</option>
-                        <option value="S4">Raj Kumar</option>
-                        <option value="S5">Amardeep Singh</option>
-                        <option value="S6">Shagufta Khan</option>
-                        <option value="S7">Rajinder Kaur</option>
-               </select>
+            	<div class="form-group{{ $errors->has('relatesto_cbo') ? 'has-error' : ''}}">
+	               	<select id="relatesto_cbo" 
+	                        name="relatesto_cbo" 
+	                        class="form-control form-control-sm"
+	                        autofocus="autofocus" required>
+	                        <option value=""  Selected hidden >Select Relates to</option>
+	                        <option value="S1">Rajesh Kumar</option>
+	                        <option value="S2">Rakesh Kumar</option>
+	                        <option value="S3">Nirmal Singh</option>
+	                        <option value="S4">Raj Kumar</option>
+	                        <option value="S5">Amardeep Singh</option>
+	                        <option value="S6">Shagufta Khan</option>
+	                        <option value="S7">Rajinder Kaur</option>
+	               </select>
+	               @if($errors->has('relatesto_cbo'))
+		                	<span class="help-block">
+		                		{{ $errors->first('relatesto_cbo')}}
+		                	</span>
+	             	@endif
+             	</div>    
             </div>
          </div>
          <div class="row" style="margin-top: 20px;">
@@ -180,38 +230,63 @@
          </div>
          <div class="row">
             <div class="col-5 col-sm-2 themed-grid-col">
-               <select  id="sanction_year_cbo"
-                        name="sanction_year_cbo"  
-                        class="form-control form-control-sm"
-                        autofocus="autofocus" required
-                        disabled="true">
-                        <option value=""  Selected hidden >Select Year</option>
-                        <option value="2018-2019" selected="true">2018-2019</option>
-                        <option value="2019-2020">2019-2020</option>
-               </select>
+            	<div class="form-group{{ $errors->has('sanction_year_cbo') ? 'has-error' : ''}}">
+	               	<select id="sanction_year_cbo"
+	                        name="sanction_year_cbo"  
+	                        class="form-control form-control-sm"
+	                        autofocus="autofocus" required>
+	                        {{-- <option value=""  Selected hidden >Select Year</option> --}}
+	                        <option value="2018-2019" selected="true">2018-2019</option>
+	               </select>
+	               @if($errors->has('sanction_year_cbo'))
+		                	<span class="help-block">
+		                		{{ $errors->first('sanction_year_cbo')}}
+		                	</span>
+		            @endif
+             	</div>  
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
-               <select  id="reason_cbo" 
-                        name="reason_cbo" 
-                        class="form-control form-control-sm"
-                        autofocus="autofocus" required>
-                        <option value=""  Selected hidden >Select Reason</option>
-               </select>
+            	<div class="form-group{{ $errors->has('reason_cbo') ? 'has-error' : ''}}">
+	               	<select id="reason_cbo" 
+	                        name="reason_cbo" 
+	                        class="form-control form-control-sm"
+                        	autofocus="autofocus" required>
+	                        <option value=""  Selected hidden >Select Reason</option>
+	               </select>
+	               @if($errors->has('reason_cbo'))
+		                	<span class="help-block">
+		                		{{ $errors->first('reason_cbo')}}
+		                	</span>
+		             @endif
+             	</div>  
             </div>
             <div class="col-6 col-sm-2 themed-grid-col">
-               <input   id="emp_code_txt" 
-                        name="emp_code_txt"
-                        class="form-control form-control-sm" 
-                        placeholder="HRMS Employee Code" 
-                        type="text" required> 
-                        
+	            <div class="form-group{{ $errors->has('emp_code_txt') ? 'has-error' : ''}}">
+	               	<input   id="emp_code_txt" 
+	                        name="emp_code_txt"
+	                        class="form-control form-control-sm" 
+	                        placeholder="HRMS Employee Code" 
+	                        type="text" required > 
+	                @if($errors->has('retire_dt_txt'))
+		                	<span class="help-block">
+		                		{{ $errors->first('emp_code_txt')}}
+		                	</span>
+		             	@endif
+             	</div>              
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
-               <input   id="emp_name_txt"
-                        name="emp_name_txt" 
-                        class="form-control form-control-sm" 
-                        placeholder="Employee Name" 
-                        type="text" required>
+            	<div class="form-group{{ $errors->has('emp_name_txt') ? 'has-error' : ''}}">	
+               		<input  id="emp_name_txt"
+	                        name="emp_name_txt" 
+	                        class="form-control form-control-sm" 
+	                        placeholder="Employee Name" 
+	                        type="text" required >
+                    @if($errors->has('retire_dt_txt'))
+		                	<span class="help-block">
+		                		{{ $errors->first('emp_name_txt')}}
+		                	</span>
+		             	@endif
+             	</div>      
             </div>
          </div>
          <div class="row" style="margin-top: 30px;">
@@ -221,19 +296,15 @@
                            class="btn btn-primary btn-sm"
                            type="button" >Reset Form
                   </button>
+                  
+							<button type="submit" class="btn btn-primary btn-sm">Save Record</button>
+				</div>
                   {{-- <button  id="save-btn"
                            name="save-btn" 
                            class="btn btn-primary btn-sm"
                            type="submit">Save Record
                   </button> --}}
-                  {{ Form::submit('Save Record',array('class' => 'btn btn-primary btn-sm'))}}
-               </div>
-         </div>
-      {!! Form::close() !!}          
-   </div>
-
-       
-
+		
 
 <script type="text/javascript">
 window.load=$(document).ready(function(){
@@ -368,9 +439,4 @@ window.load=$(document).ready(function(){
 </script>
 
 
-
-@endsection
-
-@section('scripts')
-   {!! Html::script('js/parsley.min.js') !!}
 @endsection

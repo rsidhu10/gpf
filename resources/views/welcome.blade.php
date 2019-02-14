@@ -85,11 +85,11 @@
                 </div>
 
                 <div class="links">
-                    <a href="/water/gpfadvances">GPF</a>
+                    <a href="/login">GPF</a>
                     <a href="#">Estimates</a>
                     <a href="#">Pay</a>
-                    <a href="#">GPF Statements</a>
-                    <a href="#">Case Status</a>
+                    <a href="/login">GPF Statements</a>
+                    <a href="/login">Case Status</a>
                     <a href="#">CPF</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>

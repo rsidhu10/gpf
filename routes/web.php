@@ -26,16 +26,23 @@ Route::get('/contactus', function () {
 
 Auth::routes();
 
-Route::resource('approvals','ApprovalController')->middleware('authenticated');
+// Route::resource('approvals','ApprovalController')->middleware('authenticated');
+
+Route::get('/approvals','ApprovalController@index')->middleware('authenticated');
+Route::post('/approvals','ApprovalController@store')->name('approvals.store');
+
 
 // Route::group(['middleware' => ['web']], function(){
 // 		Route::resource('cases','CasesController')->middleware('authenticated');
 // });
 
+Route::resource('reports','ReportController');
+
+
 
 Route::resource('cases','CasesController')->middleware('authenticated');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('authenticated');
 Route::get('/divuser' , 'DivuserController@index')->name('divhome');
 Route::get('verifyEmailFirst','Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
 Route::get('verify/{email}/{verifyToken}','Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
