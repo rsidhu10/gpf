@@ -36,7 +36,7 @@ Route::post('/approvals','ApprovalController@store')->name('approvals.store');
 // 		Route::resource('cases','CasesController')->middleware('authenticated');
 // });
 
-Route::resource('reports','ReportController');
+Route::resource('reports','ReportController')->middleware('authenticated');;
 
 
 

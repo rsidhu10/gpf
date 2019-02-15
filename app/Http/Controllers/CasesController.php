@@ -10,6 +10,7 @@ use App\Designation;
 use App\Reason;
 use App\PendingCase;
 use App\Http\Requests\StoreCase;
+use App\Http\Requests\EditCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -38,16 +39,13 @@ class CasesController extends Controller
                                   pending_cases.created_at,
                                   reasons.reason,
                                   case_statuses.name as dname,
-                                  designations.designation
-                                  '
-
-                                  )
+                                  designations.designation')
                             // ->orderBy('relates_to', 'asc')
                             // ->orderBy('gpf_categories', 'asc')
                            // ->orderBy('retirement_dt', 'asc')
                              ->where('status','!=','1')
                              // ->where('relates_to',"=","S5" )
-                            ->get();
+                            ->paginate(8);
         return view('cases.index',compact('cases'));
     }
 
@@ -165,7 +163,7 @@ class CasesController extends Controller
                                 pending_cases.certificate_dt,
                                 designations.designation
                                 ')->find($id);
-        // dd($data);
+      // dd($data);
         return view('cases.edit',compact('data'));
     }
 
@@ -176,9 +174,52 @@ class CasesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(request $request, $id)
     {
-        //
+        //dd($request);
+        $this->validate($request,array(
+                'status_cbo' => 'required',
+        ));
+
+        $case = PendingCase::find($id);
+        $case->status               = $request->input('status_cbo');
+        $case->approved_by          = $request->input('approvedby_cbo');
+        $case->certificate          = $request->input('certificate_cbo');
+        $case->approval_no          = $request->input('approval_order_txt');
+        $case->app_letter_number    = $request->input('approval_letter_no_txt');
+        $case->approval_dt          = $request->input('approval_letter_dt_txt');
+        $case->approved_amt         = $request->input('approved_amt_txt');
+        $case->certificate_no       = $request->input('certificate_letter_no_txt');
+        $case->certificate_dt       = $request->input('certificate_letter_dt_txt');
+        
+        $case->save();
+
+        Session()->flash('success', 'Record updated Successfully!');
+        $cases = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
+                            ->join('gpf_categories','gpf_categories.id', '=', 'pending_cases.category_id')
+                            ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+                            ->join('case_statuses', 'case_statuses.id', '=', 'pending_cases.relates_to')
+                            
+                            ->selectRaw('
+                                  concat(gpf_categories.category,"-",pending_cases.gpf_number) as gpf,
+                                  pending_cases.id,
+                                  pending_cases.name,
+                                  pending_cases.status,
+                                  pending_cases.relates_to,
+                                  pending_cases.retirement_dt,
+                                  pending_cases.diary_dt,
+                                  pending_cases.created_at,
+                                  reasons.reason,
+                                  case_statuses.name as dname,
+                                  designations.designation')
+                            // ->orderBy('relates_to', 'asc')
+                            // ->orderBy('gpf_categories', 'asc')
+                           // ->orderBy('retirement_dt', 'asc')
+                             ->where('status','!=','1')
+                             // ->where('relates_to',"=","S5" )
+                            ->paginate(8);
+        return view('cases.index',compact('cases'));
+
     }
 
     /**

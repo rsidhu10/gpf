@@ -29,7 +29,13 @@ class PendingCase extends Model
         }elseif($value == "3")
         {
             return "Objection Raised Reply awaited";
-        }       
+        }elseif($value == "4")
+        {
+            return "Under Checking";
+        }elseif($value == "5")
+        {
+            return "Submitted for Approval";
+        }           
 	
 	}
 

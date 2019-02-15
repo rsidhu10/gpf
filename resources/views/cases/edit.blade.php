@@ -7,6 +7,11 @@
     </div>
     <div class="container">
         <div class="row">
+            <form method="post" action="{{route('cases.update',[$data->id])}}">
+                {{csrf_field()}}
+                <input type="hidden" name="_method" value="put"> 
+        </div>
+         <div class="row">        
             <div class="col-6 col-sm-4 themed-grid-col">
                 <label>GPF No.</label>
             </div>
@@ -17,7 +22,7 @@
                 <label>Designation</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 10px;">
             <div class="col-6 col-sm-4 themed-grid-col">
                 <input  class="form-control form-control-sm" 
                     type="text" name="gpf_no_txt" 
@@ -44,6 +49,7 @@
                         required value="{{ $data->designation }}">
             </div>
         </div>
+        <div class="row" style="margin-top: 10px;"></div>
         <div class="row">
             <div class="col-6 col-sm-4 themed-grid-col">
                 <label>Status</label>
@@ -61,25 +67,27 @@
                         id="status_cbo" 
                         class="form-control form-control-sm" 
                         autofocus="autofocus" 
-                        required value="{{ $data->status }}">
+                        required >
+
                     <option value=""  Selected hidden >Select Status</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Approved</option>
-                    <option value="2">Under Proccessing</option>
-                    <option value="3">Objection Raised Reply awaited</option>
-                    <option value="4">Under Checking</option>
-                    <option value="5">Submitted for Approval</option>
+<option value="0" {{$data->status == 0 ? 'selected' : ''}}>Pending</option>
+<option value="1" {{$data->status == 1 ? 'selected' : ''}}>Approved</option>
+<option value="2" {{$data->status == 2 ? 'selected' : ''}}>Under Proccessing</option>
+<option value="3" {{$data->status == 3 ? 'selected' : ''}}>Objection Raised Reply awaited</option>
+<option value="4" {{$data->status == 4 ? 'selected' : ''}}>Under Checking</option>
+<option value="5" {{$data->status == 5 ? 'selected' : ''}}>Submitted for Approval</option>
                 </select>
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
                 <select name="approvedby_cbo" 
                         id="approvedby_cbo" 
                         class="form-control form-control-sm" 
-                        autofocus="autofocus" required disabled="true">
+                        autofocus="autofocus" required
+                        >
                     <option value=""  Selected hidden >
                         Select Approved By
                     </option>
-                    <option value="11">HOD</option>
+                    <option value="11" selected>HOD</option>
                     <option value="12">SE</option>
                     <option value="13">XEN</option>
                 </select>
@@ -97,6 +105,7 @@
                 </select>
             </div>
         </div>
+        <div class="row" style="margin-top: 10px;"></div>
         <div class="row">
             <div class="col-6 col-sm-4 themed-grid-col">
                 <label>Approval Order No.</label>
@@ -132,6 +141,7 @@
                         required value="{{old('letter_dt_txt')}}" >
             </div>
         </div>
+        <div class="row" style="margin-top: 10px;"></div>
         <div class="row">
             <div class="col-6 col-sm-4 themed-grid-col">
                 <label>Approved Amount</label>
@@ -186,6 +196,7 @@
                 
                  
             </div>
+            {!! Form::close()!!}
         </div>    
          {{--    <div class="col-md-4 offset-4 ">
                 <button type="button" name="reset-btn" id="reset-btn" class="btn btn-primary input-sm">Reset</button>
@@ -194,7 +205,6 @@
             </div>
         </div> --}}
     </div>
-
 <script type="text/javascript">
 
 window.load=$( document ).ready(function() {
@@ -211,12 +221,13 @@ window.load=$( document ).ready(function() {
             $('#approval_letter_no_txt').removeAttr('disabled');
             $('#approval_letter_dt_txt').removeAttr('disabled');
             $('#approved_amt_txt').removeAttr('disabled');
+            $('#approvedby_cbo').removeAttr('disabled');
             document.getElementById('approvedby_cbo').value = '11';
         }
         else
         {    
             document.getElementById('approvedby_cbo').value = '';
-            // $('#approvedby_cbo').attr('disabled', 'disabled');
+            $('#approvedby_cbo').attr('disabled', 'disabled');
             $('#certificate_cbo').attr('disabled', 'disabled');
             $('#approval_order_txt').attr('disabled', 'disabled');
             $('#approval_letter_no_txt').attr('disabled', 'disabled');

@@ -13,19 +13,19 @@
    </button>
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-         <li class="nav-item active">
+         <li class="{{ Request::is('home') ? "active" : ""}}">
             <a class="nav-link" 
                href="/home">Home 
                <span class="sr-only">(current)</span>
             </a>
          </li>
-         <li class="nav-item">
+         <li class="{{ Request::is('aboutus')? "active" : ""}}">
             <a class="nav-link" href="/aboutus">About us</a>
          </li>
-         <li class="nav-item">
+         <li class="{{ Request::is('contactus') ? "active" : ""}}">
             <a class="nav-link" href="/contactus">Contact us</a>
          </li>
-         <li class="nav-item dropdown">
+         <li class="nav-item dropdown {{ Request::is('approvals') ? "active" : ""}}">
             <a class="nav-link dropdown-toggle" 
                href="#" 
                id="navbarDropdown" 
@@ -41,7 +41,7 @@
                <a class="dropdown-item" href="#">Something else here</a>
             </div>
          </li>
-         <li class="nav-item dropdown">
+         <li class="nav-item dropdown {{ Request::is('cases') ? "active" : ""}}">
             <a class="nav-link dropdown-toggle" 
                href="#" 
                id="navbarDropdown" 

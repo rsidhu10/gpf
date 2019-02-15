@@ -3,7 +3,7 @@
 
    <div class="row" style="margin-top: 80px;">
       <div class="col-md-12" >
-         <div>
+         <div class="pull-right">
              <button  class="btn btn-info pull-right btn-xs" 
                         id="back" 
                         onclick="window.location='{{ "/reports" }}'">Back

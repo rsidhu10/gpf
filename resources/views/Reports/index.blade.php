@@ -36,7 +36,7 @@
                          $underapproval = $underapproval + $data->under_approval;
                          $approved = $approved + $data->approved; 
                   ?>
-                     <tr>
+                  <tr>
                         <td style="text-align: center;">
                            {{ $num}}
                         </td>
@@ -61,17 +61,14 @@
                         <td style="text-align: right; padding-right: 40px;">  
                            {{ $data->under_approval    }}
                         </td>
-                        {{-- <td style="text-align: right; padding-right: 40px;">  
-                           {{ $data->approved    }}</td> --}}
-                        <td>
-                           {{-- {!! Html::linkRoute('/reports/' , array($data->approved),  array('class'=> 'btn btn-primary')) !!}
- --}}
-                        </td>   
-                        {{-- <th style="text-align: right; padding-right: 40px;"> 
+                        <td style="text-align: right; padding-right: 40px;">  
+                           {{ $data->approved    }}</td>
+                         
+                        <th style="text-align: right; padding-right: 40px;"> 
                            <a href="{{'/reports/' .$data->id}}" data="{{$data->id}}">
                               {{ $data->total-$data->approved }} 
                            </a> 
-                        </th> --}}
+                        </th>
                      </tr>
                    <?php $num++; ?>
                   @endforeach
