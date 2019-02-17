@@ -3,6 +3,7 @@
    @include('partials._head')  
    <body>
       @include('partials._navbar')
+      <div class="row" style="margin-top: 70px;"></div>
       <div class="container">
          @yield('content')
          @include('partials._footer')   

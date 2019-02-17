@@ -3,39 +3,32 @@
    {!! Html::style('css/parsley.css') !!}
 @endsection
 @section('content')
-   <div class="container" style="text-align: center; margin-top:5px; ">
+   <div class="container" style="text-align: center; margin-top:20px; ">
       <h3>Add New Cases Received in GPF Branch</h3>
    </div>
-   <div class="container" style="margin-top: 10px;">   
-      <form method="post" name="save-form" id="save-form"
-            data-parsley-validate
-            action="{{route('cases.store')}}">
+   <div class="container" style="margin-top: 10px; font-size: 12px; font-weight: bold">  
+      @include('partials._messages')
+      @include('partials.errors')
 
-    
-         {{ csrf_field() }}
-         <!--- Message Starts Here      -->
-         @include('partials._messages')
-         @include('partials.errors')
-         <!-- Ends Here -->
+      {!! Form::open(['route' => 'general.store']) !!}
          <div class="row">
-            
             <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Zone</label>
+               {{ Form::label('zone','Zone:')}}
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Circle</label>
+               {{ Form::label('circle','Circle')}}
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Division</label>
+               {{ Form::label('division','Division:')}}
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Category</label>
+               {{ Form::label('category','Category:')}}
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Designation</label>
+               {{ Form::label('designation','Designation:')}}
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
-               <label>GPF No.</label>
+               {{ Form::label('gpfno','GPF No:')}}
             </div>   
          </div>
          <div class="row">
@@ -43,8 +36,8 @@
                <select  id="zone_cbo" 
                         name="zone_cbo"  
                         class="form-control form-control-sm"  
-                        autofocus="autofocus" required  
-                        style="font-size: 12px;">
+                        autofocus="autofocus" required
+                        style="font-size: 12px;"  >
                            <option value="" Selected hidden>Select Zone</option>
                            @foreach($zones as $zone)
                               <option value="{!! $zone->id !!}" >
@@ -58,7 +51,7 @@
                         name="circle_cbo"  
                         class="form-control form-control-sm" 
                         autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
                         <option value="">Select Circle</option>    
                </select>   
             </div>
@@ -67,7 +60,7 @@
                         name="division_cbo"  
                         class="form-control form-control-sm"
                         autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
                         <option value="">Select Division</option>
                </select>
             </div>
@@ -76,7 +69,7 @@
                         name="category_cbo" 
                         class="form-control form-control-sm"
                         autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
                         <option value="">Select Category</option>
                </select>   
             </div>
@@ -85,7 +78,7 @@
                         name="designation_cbo"  
                         class="form-control form-control-sm" 
                         autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
                         <option value="">Select Designation</option>
                </select>
             </div>
@@ -94,8 +87,7 @@
                         name="gpf_no_txt"  
                         class="form-control form-control-sm" 
                         placeholder="GPF No. (e.g : 123)" 
-                        type="text" required
-                        style="font-size: 12px;">         
+                        type="text" required style="font-size: 12px;" >         
             </div>
          </div>
          <div class="row" style="margin-top: 20px;">
@@ -125,14 +117,14 @@
                         class="form-control form-control-sm" 
                         placeholder="Letter No." 
                         type="text" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <input   id="letter_dt_txt"
                         name="letter_dt_txt"  
                         class="form-control form-control-sm"
                         type="date"  required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <input   id="diary_no_txt"
@@ -140,28 +132,27 @@
                         class="form-control form-control-sm"  
                         placeholder="Diary No." 
                         type="text" required
-                        style="font-size: 12px;"> 
+                        style="font-size: 12px;" > 
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <input   id="diary_dt_txt"
                         name="diary_dt_txt"  
                         class="form-control form-control-sm"
                         type="date" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <input   id="retire_dt_txt" 
                         name="retire_dt_txt" 
                         class="form-control form-control-sm" 
                         type="date" required
-                        style="font-size: 12px;">
+                        style="font-size: 12px;" >
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <select  id="relatesto_cbo" 
                         name="relatesto_cbo" 
                         class="form-control form-control-sm"
-                        autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        autofocus="autofocus" required style="font-size: 12px;" >
                         <option value=""  Selected hidden >Select Relates to</option>
                         <option value="S1">Rajesh Kumar</option>
                         <option value="S2">Rakesh Kumar</option>
@@ -192,18 +183,17 @@
                <select  id="sanction_year_cbo"
                         name="sanction_year_cbo"  
                         class="form-control form-control-sm"
-                        autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        autofocus="autofocus" required>
                         <option value=""  Selected hidden >Select Year</option>
                         <option value="2018-2019" selected="true">2018-2019</option>
+                        <option value="2019-2020">2019-2020</option>
                </select>
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
                <select  id="reason_cbo" 
                         name="reason_cbo" 
                         class="form-control form-control-sm"
-                        autofocus="autofocus" required
-                        style="font-size: 12px;">
+                        autofocus="autofocus" required style="font-size: 12px;" >
                         <option value=""  Selected hidden >Select Reason</option>
                </select>
             </div>
@@ -212,8 +202,7 @@
                         name="emp_code_txt"
                         class="form-control form-control-sm" 
                         placeholder="HRMS Employee Code" 
-                        type="text" required
-                        style="font-size: 12px;"> 
+                        type="text" required style="font-size: 12px;" > 
                         
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
@@ -221,34 +210,28 @@
                         name="emp_name_txt" 
                         class="form-control form-control-sm" 
                         placeholder="Employee Name" 
-                        type="text" required
-                        style="font-size: 12px;">
+                        type="text" required style="font-size: 12px;" >
             </div>
          </div>
          <div class="row" style="margin-top: 30px;">
-               <div class="col-md-5 offset-5 ">
-                  <button  id="reset-btn" 
-                           name="reset-btn"  
-                           class="btn btn-primary btn-sm"
-                           type="button" >Reset Form
-                  </button>
-                  {{-- <button  id="save-btn"
-                           name="save-btn" 
-                           class="btn btn-primary btn-sm"
-                           type="submit">Save Record
-                  </button> --}}
-                  {{ Form::submit('Save Record',array('class' => 'btn btn-primary btn-sm','style' => 'margin-left:10px;' ))}}
-               </div>
-         </div>
-      {!! Form::close() !!}          
+            <div class="col-md-5 offset-5 ">
+               <!-- reset buttons -->
+
+               {{ Form::reset('Reset Form'      ,array('class' => 'btn btn-primary btn-sm','id' =>'reset-btn'))}}
+               {{ Form::submit('Save Record',array('class' => 'btn btn-primary btn-sm','style' => 'margin-left:10px;'))}}
+            </div>
+         </div>      
+      {!! Form::close() !!} 
    </div>
-
-       
-
+@endsection
+@section('scripts')
+   {!! Html::script('js/parsley.min.js') !!}
+   {{-- {!! Html::script('js/masterfill.js') !!} --}}
 
 <script type="text/javascript">
-window.load=$(document).ready(function(){
-  // $('#save-form').parsley(); 
+   window.load=$(document).ready(function(){
+   alert("Why it is not working");
+   console.log('Page Loaded Successfully');
    $('#zone_cbo').on('change', function(e){
       var id = e.target.value;
       console.log(id);
@@ -256,10 +239,8 @@ window.load=$(document).ready(function(){
       $('#division_cbo').empty();
       $('#category_cbo').empty();
       $('#designation_cbo').empty();
-      
       $('#designation_cbo').append('<option value="0" disable="true" Selected hidden> Select Designation</option>');
       $('#category_cbo').append('<option value="0" disable="true" Selected hidden> Select Category</option>');
-
       $('#division_cbo').append('<option value="0" disable="true" Selected hidden> Select Division </option>');
       $('#circle_cbo').append('<option value="0" disable="true" Selected hidden> Select Circle </option>');
       $('#circle_cbo').append('<option value="10" > Chief Office </option>');
@@ -267,119 +248,17 @@ window.load=$(document).ready(function(){
          console.log(data);
          $.each(data, function(index, dataObj){
             $('#circle_cbo').append('<option value="'+ dataObj.id +'">'+ dataObj.circle_name +'</option>');
-            });
-      });   
-   });
-
-   $('#circle_cbo').on('change', function(e){
-      var id = e.target.value;
-      console.log(id);
-      
-      $('#division_cbo').empty();
-      $('#category_cbo').empty();
-      $('#designation_cbo').empty();
-      
-      $('#designation_cbo').append('<option value="0" disable="true" Selected hidden> Select Designation</option>');
-      $('#category_cbo').append('<option value="0" disable="true" Selected hidden> Select Category</option>');
-      $('#division_cbo').append('<option value="0" disable="true" Selected hidden> Select Division </option>');
-      if(id == '10'){
-         ;
-         $('#division_cbo').append('<option value="10" selected="true"> Chief Office </option>');
-      }else
-      {
-         
-         $('#division_cbo').append('<option value="11" > SE Office </option>');
-      
-      $.get("{{ URL::to('case/division?id=')}}" + id,function(data){
-         console.log(data);
-         $.each(data, function(index, dataObj){
-            $('#division_cbo').append('<option value="'+ dataObj.id +'">'+ dataObj.division_name +'</option>');
-            });
-      });
-      }     
-   });
-
-   $('#circle_cbo').on('change', function(e){
-      var id = e.target.value;
-      console.log(id);
-
-      $('#category_cbo').empty();
-      $('#designation_cbo').empty();
-      
-      $('#designation_cbo').append('<option value="0" disable="true" Selected hidden> Select Designation</option>');
-      $('#category_cbo').append('<option value="0" disable="true" Selected hidden> Select Category</option>');
-      
-      $.get("{{ URL::to('case/category')}}", function(data){
-         console.log(data);
-         $.each(data, function(index, dataObj){
-            $('#category_cbo').append('<option value="'+ dataObj.id +'">'+ dataObj.category +'</option>');
-            });
-      });   
-   });
-
-   $('#category_cbo').on('change', function(e){
-      var id = e.target.value;
-      console.log(id);
-      $('#designation_cbo').empty();
-      $('#designation_cbo').append('<option value="0" disable="true" Selected hidden> Select Designation</option>');
-      
-      $.get("{{ URL::to('case/designation?id=')}}" + id,function(data){
-         console.log(data);
-         $.each(data, function(index, dataObj){
-            $('#designation_cbo').append('<option value="'+dataObj.id+'">'+dataObj.designation +'</option>');
          });
       });   
    });
 
-   $('#relatesto_cbo').on('change', function(e){
-      var id = e.target.value;
-      console.log(id);
-      $('#reason_cbo').empty();
-      $('#reason_cbo').append('<option value="0" disable="true" Selected hidden> Select Reason</option>');
-      $.get("{{ URL::to('case/reason')}}", function(data){
-         console.log(data);
-         $.each(data, function(index, dataObj){
-            $('#reason_cbo').append('<option value="'+ dataObj.id +'">'+ dataObj.reason +'</option>');
-         });
-      });
-   });
-
-   // Rest Button
-    
-    $('#reset-btn').click(function(){
+   
+   $('#reset-btn').click(function(){
+      alert('reset click from home');
         document.location.reload();
-    });  
+    });
 
-    
+});
+</script>   
 
-    // Save Button
-
-    $('#save-btn').click(function(){
-      alert('hi');
-        $('#save-btn').attr('disabled', 'disabled');
-        // document.getElementById('save-form').submit();
-        document.getElementById('save-form').submit();
-                $("#save-btn").removeClass('btn-primary');
-                $("#save-btn").addClass('btn-success');
-                $("#save-btn").text(' Record Saved!');
-                var timeoutID = window.setTimeout(function () 
-                {
-                     //alert('Record Saved');
-                    $("#save-btn").removeClass('btn-success');
-                    $("#save-btn").addClass('btn-primary');
-                    $("#save-btn").text('Save Record');
-                    document.location.reload();
-                }, 5000);        
-        
-    });    
-});  
-</script>
-
-
-
-@endsection
-
-@section('scripts')
-   {!! Html::script('js/parsley.min.js') !!}
-   {!! Html::script('js/masterfill.js') !!}
-@endsection
+@endsection 

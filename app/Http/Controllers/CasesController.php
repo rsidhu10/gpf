@@ -24,12 +24,10 @@ class CasesController extends Controller
     public function index()
     {
         $cases = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
-                            ->join('gpf_categories','gpf_categories.id', '=', 'pending_cases.category_id')
-                            ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
-                            ->join('case_statuses', 'case_statuses.id', '=', 'pending_cases.relates_to')
-                            
-                            ->selectRaw('
-                                  concat(gpf_categories.category,"-",pending_cases.gpf_number) as gpf,
+        ->join('gpf_categories','gpf_categories.id', '=', 'pending_cases.category_id')
+        ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+        ->join('case_statuses', 'case_statuses.id', '=', 'pending_cases.relates_to')
+        ->selectRaw('concat(gpf_categories.category,"-",pending_cases.gpf_number) as gpf,
                                   pending_cases.id,
                                   pending_cases.name,
                                   pending_cases.status,
@@ -42,7 +40,7 @@ class CasesController extends Controller
                                   designations.designation')
                             // ->orderBy('relates_to', 'asc')
                             // ->orderBy('gpf_categories', 'asc')
-                           // ->orderBy('retirement_dt', 'asc')
+                            ->orderBy('retirement_dt', 'asc')
                              ->where('status','!=','1')
                              // ->where('relates_to',"=","S5" )
                             ->paginate(8);
@@ -242,9 +240,10 @@ class CasesController extends Controller
 
     public function circles(){
       $id = Input::get('id');
+      //dd($id);
       $circles = Circle::where('zone_id', '=', $id)->get();
        // $circles = Circle::all();
-      return response()->json($circles);
+    return response()->json($circles);
     }
 
     /**

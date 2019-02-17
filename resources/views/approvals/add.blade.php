@@ -3,10 +3,10 @@
    {!! Html::style('css/parsley.css') !!}
 @endsection --}}
 @section('content')
-   <div class="container" style="text-align: center; margin-top:80px; ">
+   <div class="container" style="text-align: center; margin-top:5px; ">
       <h3>Add New Cases Received in GPF Branch</h3>
    </div>
-   <div class="container" style="margin-top: 20px;">   
+   <div class="container" style="margin-top: 10px;">   
       {{-- <form method="post" name="save-form" id="save-form"
             data-parsley-validate
             action="{{route('cases.store')}}"> --}}
@@ -43,17 +43,13 @@
                         name="zone_cbo"  
                         class="form-control form-control-sm"  
                         autofocus="autofocus" required  >
-                           
-                           <option value="" Selected hidden>Select Zone</option>
-                           @foreach($zones as $zone)
-                              <option value="{!! $zone->id !!}" {{ old('zone_cbo') ==$zone->id ? 'selected' : '' }} >
-                                 {{ $zone->zone_name }}
-                              </option>
-                           @endforeach
-                           
-
+                        <option value="" Selected hidden>Select Zone</option>
+                        @foreach($zones as $zone)
+                           <option value="{!! $zone->id !!}" {{ old('zone_cbo') ==$zone->id ? 'selected' : '' }} >
+                              {{ $zone->zone_name }}
+                           </option>
+                        @endforeach
                </select>
-
             </div>
             <div class="col-5 col-sm-2 themed-grid-col">
                <select  id="circle_cbo"

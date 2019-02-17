@@ -19,11 +19,11 @@
    		<div class="table-responsive" id="Combo_details">
 	   		<table class="table table-condensed table-striped">
 	 			<tr>
-	 				<td width="14%" align="left" style="padding-left: 10px;"><span>Zone</span></td>
-	 				<td width="17%" align="left"><span>Circle</span></td>
-	 				<td width="17%" align="left"><span>Division</span></td>
-	 				<td width="17%" align="left"><span>Category</span></td>
-	 				<td width="27%" align="left"><span>Designation</span></td>
+				<td   width="14%" align="left" style="padding-left: 10px;"><span>Zone</span></td>
+				<td   width="17%" align="left"><span>Circle</span></td>
+				<td   width="17%" align="left"><span>Division</span></td>
+				<td   width="17%" align="left"><span>Category</span></td>
+				<td   width="27%" align="left"><span>Designation</span></td>
 	 				{{-- <td width="10%" align="center">
 	 					<input  type="text" name="division-txt" id="division-txt" style="width: 1px; visibility: hidden; height: 10px;" >
 	 					<input  type="text" name="subdivision-txt" id="subdivision-txt" style="width: 1px; visibility: hidden; height: 10px;" >

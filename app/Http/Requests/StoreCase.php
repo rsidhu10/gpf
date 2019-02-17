@@ -24,26 +24,11 @@ class StoreCase extends FormRequest
     public function rules()
     {
         return [
-            'zone_cbo'          => 'required',
-            'circle_cbo'        => 'required',
-            'division_cbo'      => 'required',
-            'category_cbo'      => 'required',
-            'category_cbo'      => 'required',
-            'designation_cbo'   => 'required',
-            'reason_cbo'        => 'required',
-            'relatesto_cbo'     => 'required',
-            'sanction_year_cbo' => 'required',
-            'diary_no_txt'  => 'required',
-            'emp_name_txt'  => 'required',
-            'emp_code_txt'  => 'required | numeric',
-            'gpf_no_txt'    => 'required',
-            'letter_no_txt' => 'required | alpha_dash',
-            'letter_dt_txt' => 'required | date',
-            'diary_dt_txt'  => 'required | date',
-            'retire_dt_txt' => 'required | date',
-         
-        ];
-        
+                    'zone'      => 'required',   
+                    'circle'    => 'required_if:zone,12','approved',
+                    'division'  => 'required_if:zone,11',
+                    'dor'       => 'sometimes|required|date',
+                ];
     }
 
     public function message()

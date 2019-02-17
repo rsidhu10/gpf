@@ -37,7 +37,7 @@ Route::post('/approvals','ApprovalController@store')->name('approvals.store');
 // });
 
 Route::resource('reports','ReportController')->middleware('authenticated');;
-
+Route::resource('general','GeneralController');
 
 
 Route::resource('cases','CasesController')->middleware('authenticated');
@@ -74,4 +74,7 @@ Route::get('/show-gpf-adv',    'CasesController@showcases');
 Route::get('/case/dealer',   'CasesController@flagedcases');
 
 Route::get('/home/importantcase', 'HomeController@importantcase');
+
+
+
 
