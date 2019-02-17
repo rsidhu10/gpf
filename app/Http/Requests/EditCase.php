@@ -23,31 +23,18 @@ class EditCase extends FormRequest
      */
     public function rules()
     {
-        $rules = [];
-        
-        //     if ($this->status_cbo->has('1')) {
-        //         $rules['certificate_cbo'] = 'required';
-        //         if($this->certificate_cbo->has('Yes')){
-        //             $rules['approvedby_cbo']            = 'required';
-        //             $rules['approval_order_txt']        = 'required';
-        //             $rules['approval_letter_no_txt']    = 'required';
-        //             $rules['approval_letter_dt_txt']    = 'required|date';
-        //             $rules['approved_amt_txt']          = 'required|numeric';
-        //             $rules['certificate_letter_no_txt'] = 'required';
-        //             $rules['certificate_letter_dt_txt'] = 'required|date';
-        //         }else{
-        //             $rules['approvedby_cbo']            = 'required';
-        //             $rules['approval_order_txt']        = 'required';
-        //             $rules['approval_letter_no_txt']    = 'required';
-        //             $rules['approval_letter_dt_txt']    = 'required|date';
-        //             $rules['approved_amt_txt']          = 'required|numeric';
-        //         }
+        return 
+        [
+            'status_cbo'                => 'required',
+            'approvedby_cbo'            => 'required_if:status_cbo,1',
+            'approval_order_txt'        => 'required_if:status_cbo,1',
+            'approval_letter_no_txt'    => 'required_if:status_cbo,1',
+            'approval_letter_dt_txt'    => 'required_if:status_cbo,1|date',
+            'approved_amt_txt'          => 'required_if:status_cbo,1',
+            'certificate_cbo'           => 'required_if:status_cbo,1', 
+            'certificate_letter_no_txt' => 'required_if:certificate_cbo,"Yes"',
+            'certificate_letter_dt_txt' => 'required_if:certificate_cbo,"Yes"|date',
+        ];
 
-        //     }else
-        //     {
-        //         $rules['status_cbo']        = 'required';
-        //     }
-
-        // return $rules;
     }
 }

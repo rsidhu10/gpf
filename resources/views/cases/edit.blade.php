@@ -70,12 +70,12 @@
                         required >
 
                     <option value=""  Selected hidden >Select Status</option>
-<option value="0" {{$data->status == 0 ? 'selected' : ''}}>Pending</option>
-<option value="1" {{$data->status == 1 ? 'selected' : ''}}>Approved</option>
-<option value="2" {{$data->status == 2 ? 'selected' : ''}}>Under Proccessing</option>
-<option value="3" {{$data->status == 3 ? 'selected' : ''}}>Objection Raised Reply awaited</option>
-<option value="4" {{$data->status == 4 ? 'selected' : ''}}>Under Checking</option>
-<option value="5" {{$data->status == 5 ? 'selected' : ''}}>Submitted for Approval</option>
+<option value="0" {{$data->status == '0' ? 'selected' : ''}}>Pending</option>
+<option value="1" {{$data->status == '1' ? 'selected' : ''}}>Approved</option>
+<option value="2" {{$data->status == '2' ? 'selected' : ''}}>Under Proccessing</option>
+<option value="3" {{$data->status == '3' ? 'selected' : ''}}>Objection Raised Reply awaited</option>
+<option value="4" {{$data->status == '4' ? 'selected' : ''}}>Under Checking</option>
+<option value="5" {{$data->status == '5' ? 'selected' : ''}}>Submitted for Approval</option>
                 </select>
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
@@ -123,14 +123,16 @@
                         type="text" name="approval_order_txt" 
                         id="approval_order_txt" 
                         placeholder="Approval Order No."  
-                        disabled="true" required >
+                        disabled="true" required 
+                        value="{{ $data->approval_no }}">
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
                 <input  class="form-control form-control-sm" 
                         type="text" name="approval_letter_no_txt" 
                         id="approval_letter_no_txt" 
                         placeholder="Approval Letter No."  
-                        disabled="true" required >
+                        disabled="true" required 
+                        value="{{ $data->app_letter_no }}">
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
                 <input  class="form-control form-control-sm" 
@@ -138,7 +140,7 @@
                         name="approval_letter_dt_txt" 
                         id="approval_letter_dt_txt"
                         disabled="true" 
-                        required value="{{old('letter_dt_txt')}}" >
+                        required value="{{ $data->approval_dt }}">
             </div>
         </div>
         <div class="row" style="margin-top: 10px;"></div>
@@ -160,7 +162,7 @@
                         id="approved_amt_txt" 
                         placeholder="Approved Amount"  
                         disabled="true"
-                        required >
+                        required value="{{ $data->approved_amt }}">
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
                 <input  class="form-control form-control-sm" 
@@ -168,7 +170,7 @@
                         id="certificate_letter_no_txt" 
                         placeholder="Certificate Letter No."  
                         disabled="true"
-                        required >
+                        required value="{{ $data->certificate_no }}" >
             </div>
             <div class="col-6 col-sm-4 themed-grid-col">
                 <input  class="form-control form-control-sm" 
@@ -176,7 +178,7 @@
                         name="certificate_letter_dt_txt" 
                         id="certificate_letter_dt_txt" 
                         disabled="true" 
-                        required value="{{old('letter_dt_txt')}}" >
+                        required value="{{ $data->certificate_dt }}" >
             </div>
         </div>
     </br>

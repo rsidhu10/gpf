@@ -172,12 +172,12 @@ class CasesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(request $request, $id)
+    public function update(EditCase $request, $id)
     {
         //dd($request);
-        $this->validate($request,array(
-                'status_cbo' => 'required',
-        ));
+        // $this->validate($request,array(
+        //         'status_cbo' => 'required',
+        // ));
 
         $case = PendingCase::find($id);
         $case->status               = $request->input('status_cbo');
@@ -210,12 +210,13 @@ class CasesController extends Controller
                                   reasons.reason,
                                   case_statuses.name as dname,
                                   designations.designation')
-                            // ->orderBy('relates_to', 'asc')
+                            ->orderBy('relates_to', 'asc')
                             // ->orderBy('gpf_categories', 'asc')
-                           // ->orderBy('retirement_dt', 'asc')
+                            ->orderBy('retirement_dt', 'asc')
                              ->where('status','!=','1')
                              // ->where('relates_to',"=","S5" )
                             ->paginate(8);
+
         return view('cases.index',compact('cases'));
 
     }
