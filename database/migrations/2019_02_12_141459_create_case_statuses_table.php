@@ -19,10 +19,13 @@ class CreateCaseStatusesTable extends Migration
             $table->string('financial_year', 10);
             $table->string('month', 2);
             $table->string('year', 4);
-            $table->string('case_total', 4)->default('0');
-            $table->string('case_complete', 4)->default('0');
-            $table->string('case_objection', 4)->default('0');
-            $table->string('case_approved', 4)->default('0');
+            $table->string('total', 4)->default('0');
+            $table->string('documents_complete', 4)->default('0');
+            $table->string('objection_raised', 4)->default('0');
+            $table->string('under_processing', 4)->default('0');
+            $table->string('under_checking', 4)->default('0');
+            $table->string('under_approval', 4)->default('0');
+            $table->string('approved', 4)->default('0');
             $table->timestamps();
             $table->primary('id');
         });

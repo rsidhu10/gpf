@@ -17,7 +17,7 @@
                <th>Received on</th>
                <th>Relates To</th>
                <th>Status</th>
-               <th>Action</th>
+               <th>Action</th> <!--  Graphql Javascript -->
             </tr>
             @php $num =   (($cases->currentpage() - 1) * $cases->perpage())+1; @endphp
             @foreach($cases as $data)
@@ -27,7 +27,7 @@
                   <td style="text-align: left;">  {{ $data->name          }}</td>
                   <td style="text-align: left;">  {{ $data->designation   }}</td>
                   <td style="text-align: left;">  {{ $data->reason        }}</td>
-                  <td style="text-align: center;">  {{ \Carbon\Carbon::parse($data->retirement_dt)->format('d-M-y')}}</td> 
+                  <td style="text-align: center;">  {{ \Carbon\Carbon::parse($data->retirement_dt)->format('M-y')}}</td> 
                   <td style="text-align: left;">  {{ \Carbon\Carbon::parse($data->diary_dt)->diffForHumans() }}</td>      
                   <td style="text-align: left;">  {{ substr($data->dname, 0, 8)}}</td>
                   <td style="text-align: left;">  {{ $data->status }}</td>  

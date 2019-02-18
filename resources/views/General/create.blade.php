@@ -55,7 +55,13 @@
                         <option value="">Select Circle</option>    
                </select>   
             </div>
+            
             <div class="col-5 col-sm-2 themed-grid-col">
+                  {{-- {{ Form::select('Select Division', $temp,  array('class' => 'form-control')) }} --}}
+
+
+
+
                <select  id="division_cbo" 
                         name="division_cbo"  
                         class="form-control form-control-sm"
@@ -90,129 +96,7 @@
                         type="text" required style="font-size: 12px;" >         
             </div>
          </div>
-         <div class="row" style="margin-top: 20px;">
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Letter No.</label>
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Letter Date</label>
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Diary No.</label>
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Diary Date</label>
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Retirement Date</label>
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Case Relates to</label>
-            </div>   
-         </div>
-         <div class="row">
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="letter_no_txt" 
-                        name="letter_no_txt"  
-                        class="form-control form-control-sm" 
-                        placeholder="Letter No." 
-                        type="text" required
-                        style="font-size: 12px;" >
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="letter_dt_txt"
-                        name="letter_dt_txt"  
-                        class="form-control form-control-sm"
-                        type="date"  required
-                        style="font-size: 12px;" >
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="diary_no_txt"
-                        name="diary_no_txt"  
-                        class="form-control form-control-sm"  
-                        placeholder="Diary No." 
-                        type="text" required
-                        style="font-size: 12px;" > 
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="diary_dt_txt"
-                        name="diary_dt_txt"  
-                        class="form-control form-control-sm"
-                        type="date" required
-                        style="font-size: 12px;" >
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <input   id="retire_dt_txt" 
-                        name="retire_dt_txt" 
-                        class="form-control form-control-sm" 
-                        type="date" required
-                        style="font-size: 12px;" >
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <select  id="relatesto_cbo" 
-                        name="relatesto_cbo" 
-                        class="form-control form-control-sm"
-                        autofocus="autofocus" required style="font-size: 12px;" >
-                        <option value=""  Selected hidden >Select Relates to</option>
-                        <option value="S1">Rajesh Kumar</option>
-                        <option value="S2">Rakesh Kumar</option>
-                        <option value="S3">Nirmal Singh</option>
-                        <option value="S4">Raj Kumar</option>
-                        <option value="S5">Amardeep Singh</option>
-                        <option value="S6">Shagufta Khan</option>
-                        <option value="S7">Rajinder Kaur</option>
-               </select>
-            </div>
-         </div>
-         <div class="row" style="margin-top: 20px;">
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Financial Year</label>
-            </div>
-            <div class="col-6 col-sm-4 themed-grid-col">
-               <label>Reason</label>
-            </div>
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <label>Employee Code</label>
-            </div>
-            <div class="col-6 col-sm-2 themed-grid-col">
-               <label>Employee Name</label>
-            </div>  
-         </div>
-         <div class="row">
-            <div class="col-5 col-sm-2 themed-grid-col">
-               <select  id="sanction_year_cbo"
-                        name="sanction_year_cbo"  
-                        class="form-control form-control-sm"
-                        autofocus="autofocus" required>
-                        <option value=""  Selected hidden >Select Year</option>
-                        <option value="2018-2019" selected="true">2018-2019</option>
-                        <option value="2019-2020">2019-2020</option>
-               </select>
-            </div>
-            <div class="col-6 col-sm-4 themed-grid-col">
-               <select  id="reason_cbo" 
-                        name="reason_cbo" 
-                        class="form-control form-control-sm"
-                        autofocus="autofocus" required style="font-size: 12px;" >
-                        <option value=""  Selected hidden >Select Reason</option>
-               </select>
-            </div>
-            <div class="col-6 col-sm-2 themed-grid-col">
-               <input   id="emp_code_txt" 
-                        name="emp_code_txt"
-                        class="form-control form-control-sm" 
-                        placeholder="HRMS Employee Code" 
-                        type="text" required style="font-size: 12px;" > 
-                        
-            </div>
-            <div class="col-6 col-sm-4 themed-grid-col">
-               <input   id="emp_name_txt"
-                        name="emp_name_txt" 
-                        class="form-control form-control-sm" 
-                        placeholder="Employee Name" 
-                        type="text" required style="font-size: 12px;" >
-            </div>
-         </div>
+
          <div class="row" style="margin-top: 30px;">
             <div class="col-md-5 offset-5 ">
                <!-- reset buttons -->
@@ -257,6 +141,25 @@
       alert('reset click from home');
         document.location.reload();
     });
+
+   
+      var consumer_type_array = [];
+      consumer_type_array.push({id:0, text:"Residential"});
+      consumer_type_array.push({id:1, text:"Commercial"});
+      consumer_type_array.push({id:2, text:"Bulk"});
+      $("#division_cbo").select2({ placeholder:"Consumer Type", data:consumer_type_array, multiple:false,
+          initSelection:function (element, callback) {
+              for (current in consumer_type_array) {
+                  if (consumer_type_array[current]['id'] == 0) {
+                      callback({id:consumer_type_array[current]['id'], text:consumer_type_array[current]['text']});
+                      break;
+                  }
+              }
+          }
+      });
+
+
+
 
 });
 </script>   

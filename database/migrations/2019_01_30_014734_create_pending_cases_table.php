@@ -32,7 +32,8 @@ class CreatePendingCasesTable extends Migration
             $table->string('relates_to',3);
             $table->string('status',2)->default('0');
             $table->string('approved_by',2)->default('11');
-            $table->string('approval_no',10)->nullable();
+            $table->string('order_no',10)->nullable();
+            $table->string('app_letter_number',10)->nullable();
             $table->date('approval_dt')->nullable();
             $table->float('approved_amt', 11,2)->nullable();
             $table->string('certificate',3)->default('No');
