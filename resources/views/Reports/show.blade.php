@@ -1,15 +1,18 @@
 @extends('layouts.main')
 @section('content')
 
-   <div class="row" style="margin-top: 80px;">
+   <div class="row" style="margin-top: 20px;">
       <div class="col-md-12" >
          <div class="pull-right">
              <button  class="btn btn-info pull-right btn-xs" 
                         id="back" 
                         onclick="window.location='{{ "/reports" }}'">Back
                </button>
+               <a href="{{ url('reports/pdf') }}">Download Report</a>
          </div>
-         <div><h3 style="text-align: center;">{{ 'hi '}} </h3> </div>
+         
+         <div><h3 style="text-align: center;">{{ 'List of Pending Cases' }} </h3> </div>
+         
          <table class="table table-condensed table-bordered table-hover table-striped">
             <tr style="font-size: 12px; text-align: center;">
                <th>Sr.</th>
@@ -20,6 +23,7 @@
                <th>Retirement Date</th>
                <th>Received on</th>
                <th>Status</th>
+               <th>Assist.</th>
             </tr>
             </tr>
             <?php $num =1;  
@@ -49,6 +53,9 @@
                </td>
                <td style="text-align: left;">  
                   {{ $data->status    }}
+               </td>
+               <td style="text-align: center;">
+                  {{ $data->relates_to }}
                </td>
             </tr>
           <?php $num++; ?>

@@ -40,7 +40,7 @@ class CasesController extends Controller
                                   designations.designation')
                             // ->orderBy('relates_to', 'asc')
                             // ->orderBy('gpf_categories', 'asc')
-                            ->orderBy('retirement_dt', 'asc')
+                            ->orderBy('diary_dt', 'asc')
                              ->where('status','!=','1')
                              // ->where('relates_to',"=","S5" )
                             ->paginate(8);
@@ -54,7 +54,7 @@ class CasesController extends Controller
      */
     public function create()
     {
-        $zones = Zone::all();
+        //$zones = Zone::all();
         return view('cases.create',compact('zones'));
     }
 
@@ -64,9 +64,9 @@ class CasesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCase $request)
+    public function store(Request $request)
     {
-        // dd($request);
+         dd($request);
         // $data = Input::all();
         // //dd($data);
         $data = PendingCase::where('letter_no',   $request->letter_no_txt)
@@ -115,11 +115,19 @@ class CasesController extends Controller
      */
     public function show($id)
     {
+        // $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
+        //                     ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+        //                     ->join('case_statuses', 'case_statuses.id', '=', 'pending_cases.relates_to')
         $data = PendingCase::join('reasons','reasons.id','=','pending_cases.casetype_id')
-                            ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
-                            ->selectRaw('reasons.reason,pending_cases.id,
+        ->join('gpf_categories','gpf_categories.id', '=', 'pending_cases.category_id')
+        ->join('designations', 'designations.id', '=', 'pending_cases.designation_id')
+        ->join('case_statuses', 'case_statuses.id', '=', 'pending_cases.relates_to')
+        ->selectRaw('concat(gpf_categories.category,"-", pending_cases.gpf_number) as newgpf,
+                                reasons.reason,
+                                gpf_categories.category,
                                 pending_cases.id,
                                 pending_cases.gpf_number,
+
                                 pending_cases.name,
                                 pending_cases.approved_by,
                                 pending_cases.approval_no,
@@ -129,7 +137,8 @@ class CasesController extends Controller
                                 pending_cases.certificate,
                                 pending_cases.certificate_no,
                                 pending_cases.certificate_dt,
-                                designations.designation
+                                designations.designation,
+                                pending_cases.relates_to
                                 ')->find($id);
 
                         return view('cases/show',compact('data'));

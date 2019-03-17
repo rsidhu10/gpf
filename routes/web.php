@@ -1,3 +1,5 @@
+
+
 <?php
 
 /*
@@ -14,6 +16,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get("/getPDF","ControllerConvertPdf@getPDF");
+
+
+
 Route::get('/cases/test', function () {
     return view('/cases/test');
 });
@@ -35,6 +42,8 @@ Route::post('/approvals','ApprovalController@store')->name('approvals.store');
 // Route::group(['middleware' => ['web']], function(){
 // 		Route::resource('cases','CasesController')->middleware('authenticated');
 // });
+
+
 
 Route::resource('reports','ReportController')->middleware('authenticated');;
 Route::resource('general','GeneralController');

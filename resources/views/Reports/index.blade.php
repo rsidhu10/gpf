@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 
-   <div class="row" style="margin-top: 80px;">
+   <div class="row" style="margin-top: 20px;">
       <div class="col-md-12">
          <div><h3 style="text-align: center;">Assistantwise Status of GPF Advances</h3> </div>
          <table class="table table-condensed table-bordered table-hover table-striped">

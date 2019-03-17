@@ -144,6 +144,12 @@
                         <div class="card-body text-primary">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"> 
+                                    <strong> S2 - ENGG-1204 Harjit Singh XEN</strong>
+                                </li>
+                                <li class="list-group-item"> 
+                                    <strong> S2 - ENGG-295 Kuldeep Singh SDO</strong>
+                                </li>
+                                <li class="list-group-item"> 
                                     <strong> S2 - MISC-1416 Narinder Kumar Reference Minister</strong>
                                 </li>
                                 <li class="list-group-item">

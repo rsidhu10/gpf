@@ -37,7 +37,7 @@ class ApprovalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCase $request)
+    public function store(Request $request)
     {
       
       //dd($request);
@@ -49,7 +49,7 @@ class ApprovalController extends Controller
         {
             $zones = Zone::all();
             Session()->flash('success', 'Record Already Exist!!');
-            return view('cases.create',compact('zones'));
+            return view('approvals.add',compact('zones'));
             
         }else
         {
@@ -79,7 +79,7 @@ class ApprovalController extends Controller
             
             $zones = Zone::all();
             
-            return view('cases.create',compact('zones'));
+            return view('approvals.add',compact('zones'));
         }
 
  
